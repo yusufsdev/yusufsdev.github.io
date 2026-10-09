@@ -1,0 +1,404 @@
+<!DOCTYPE html> <!-- Belgenin HTML5 olduğunu tarayıcıya bildirir -->
+<html lang="tr"> <!-- Sayfanın dili Türkçe olarak belirtilir -->
+<head> <!-- Sayfa hakkında görünmeyen bilgilerin bulunduğu bölüm -->
+  <meta charset="UTF-8"> <!-- Türkçe karakterlerin doğru görünmesi için karakter kodlaması -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Telefonlarda sayfanın ekrana uyum sağlaması -->
+  <meta name="description" content="Yusuf İslam Yılmaz kişisel tanıtım sayfası"> <!-- Arama motorlarında görünecek kısa açıklama -->
+  <title>Yusuf İslam Yılmaz | Kişisel Tanıtım Sayfası</title> <!-- Tarayıcı sekmesinde görünen başlık -->
+
+  <!-- ===== YAZI TİPLERİ: internet yoksa sistem fontları kullanılır ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- Google Fonts sunucusuna önceden bağlanır -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- Font dosyalarının sunucusuna önceden bağlanır -->
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet"> <!-- Başlık ve metin yazı tiplerini yükler -->
+
+  <!-- ===== CSS: Sayfanın renkleri, yazıları ve yerleşimi ===== -->
+  <style> /* CSS kodlarının başladığı etiket */
+    :root { /* Açık tema için renk değişkenleri */
+      --bg: #f2f2ef; /* Sayfa arka plan rengi */
+      --ink: #1c1c1c; /* Ana yazı rengi */
+      --muted: #666660; /* Soluk yazı rengi */
+      --line: #cfcfc8; /* Ayırıcı çizgi rengi */
+      --accent: #b3202a; /* Vurgu rengi (kırmızı) */
+      --panel: #b3202a; /* Sol panelin arka plan rengi */
+      --panel-ink: #ffffff; /* Sol paneldeki yazı rengi */
+    } /* Açık tema değişkenlerinin sonu */
+
+    :root[data-theme="dark"] { /* Koyu tema seçildiğinde geçerli olan renkler */
+      --bg: #141414; /* Koyu arka plan */
+      --ink: #ececea; /* Açık yazı rengi */
+      --muted: #a0a09a; /* Soluk yazı rengi */
+      --line: #333330; /* Koyu temada çizgi rengi */
+      --accent: #ff6b6f; /* Koyu zeminde okunur vurgu rengi */
+      --panel: #7d151c; /* Koyu temada sol panel rengi */
+      --panel-ink: #ffffff; /* Panel yazı rengi */
+    } /* Koyu tema değişkenlerinin sonu */
+
+    * { box-sizing: border-box; } /* Kenar boşlukları genişliğe dahil edilir */
+
+    html { scroll-behavior: smooth; } /* Menü bağlantılarında yumuşak kaydırma */
+
+    body { /* Sayfanın genel ayarları */
+      margin: 0; /* Tarayıcının varsayılan boşluğunu sıfırlar */
+      background: var(--bg); /* Arka plan rengini değişkenden alır */
+      color: var(--ink); /* Yazı rengini değişkenden alır */
+      font-family: "Hanken Grotesk", system-ui, "Segoe UI", sans-serif; /* Metin yazı tipi ve yedekleri */
+      line-height: 1.7; /* Satır aralığı */
+      display: grid; /* İki sütunlu yerleşim için grid */
+      grid-template-columns: 340px 1fr; /* Sol panel 340px, içerik kalan alan */
+      min-height: 100vh; /* Sayfa en az ekran yüksekliği kadar olur */
+      transition: background .3s, color .3s; /* Tema geçişinde yumuşak değişim */
+    } /* body sonu */
+
+    h1, h2, h3 { /* Tüm başlıkların ortak ayarı */
+      font-family: "Bricolage Grotesque", system-ui, "Segoe UI", sans-serif; /* Başlık yazı tipi */
+      line-height: 1.1; /* Başlıklarda sıkı satır aralığı */
+      margin: 0; /* Varsayılan dış boşluğu sıfırlar */
+    } /* Başlık ayarlarının sonu */
+
+    aside { /* Sol panel */
+      background: var(--panel); /* Panel rengi */
+      color: var(--panel-ink); /* Panel yazı rengi */
+      grid-row: 1 / span 2; /* Panel hem içerik hem alt bilgi satırını kaplar (alt bilgiyle çakışma hatası düzeltildi) */
+      position: sticky; /* Kaydırınca ekranda sabit kalır */
+      top: 0; /* Ekranın en üstüne yapışır */
+      height: 100vh; /* Panel ekran boyunca uzanır */
+      padding: 40px 32px; /* İç boşluk */
+      display: flex; /* İçeriği dikey düzenlemek için flex */
+      flex-direction: column; /* Öğeler alt alta dizilir */
+      justify-content: space-between; /* Üst ve alt grup birbirinden ayrılır */
+    } /* aside sonu */
+
+    #selam { margin: 0 0 12px; opacity: .85; } /* Selamlama satırı: boşluk ve hafif saydamlık */
+
+    h1 { /* Ana başlık (ad soyad) */
+      font-size: clamp(2.6rem, 5vw, 3.8rem); /* Ekrana göre değişen büyüklük */
+      font-weight: 800; /* Kalın yazı */
+      letter-spacing: -0.02em; /* Harfler biraz sıkılaştırılır */
+    } /* h1 sonu */
+
+    .alt { margin: 16px 0 0; max-width: 26ch; opacity: .9; } /* Başlık altındaki kısa tanıtım yazısı */
+
+    nav { display: flex; flex-direction: column; gap: 8px; margin-top: 32px; } /* Menü alt alta dizilir */
+
+    nav a { /* Menü bağlantıları */
+      color: var(--panel-ink); /* Beyaz yazı */
+      text-decoration: none; /* Alt çizgiyi kaldırır */
+      padding: 4px 0; /* Dikey iç boşluk */
+      border-bottom: 1px solid transparent; /* Görünmez alt çizgi (yer ayırır) */
+      width: fit-content; /* Genişlik yazı kadar olur */
+      opacity: .75; /* Pasif bağlantılar soluk görünür */
+    } /* nav a sonu */
+
+    nav a:hover, nav a:focus-visible, nav a.aktif { /* Üzerine gelince, odaklanınca ve aktif bölümde */
+      opacity: 1; /* Tam görünür olur */
+      border-bottom-color: var(--panel-ink); /* Alt çizgi belirir */
+    } /* Menü hover sonu */
+
+    #tema { /* Tema değiştirme düğmesi */
+      background: transparent; /* Şeffaf zemin */
+      color: var(--panel-ink); /* Beyaz yazı */
+      border: 1px solid var(--panel-ink); /* Beyaz çerçeve */
+      border-radius: 999px; /* Yuvarlak kenarlar */
+      padding: 8px 18px; /* İç boşluk */
+      font: inherit; /* Yazı tipini çevresinden alır */
+      cursor: pointer; /* Fare imleci el işareti olur */
+      width: fit-content; /* Düğme yazı kadar geniş olur */
+    } /* #tema sonu */
+
+    #tema:hover, #tema:focus-visible { background: var(--panel-ink); color: var(--panel); } /* Üzerine gelince renkler ters döner */
+
+    main { grid-column: 2; grid-row: 1; padding: 64px clamp(24px, 6vw, 80px); max-width: 880px; } /* İçerik sağ sütunda, ilk satırda durur */
+
+    section { padding: 0 0 48px; margin-bottom: 48px; border-bottom: 1px solid var(--line); } /* Her bölüm çizgiyle ayrılır */
+
+    section:last-of-type { border-bottom: none; margin-bottom: 0; } /* Son bölümde çizgi olmaz */
+
+    h2 { font-size: 2rem; margin-bottom: 20px; } /* Bölüm başlıklarının boyutu */
+
+    p { max-width: 62ch; margin: 0 0 14px; } /* Paragraf genişliği okunabilir tutulur */
+
+    strong { color: var(--accent); font-weight: 600; } /* Önemli yazılar vurgu renginde ve kalın */
+
+    em { color: var(--muted); } /* Eğik yazılar soluk renkte */
+
+    ul.ilgi { list-style: none; padding: 0; margin: 0; columns: 2; column-gap: 40px; } /* İlgi alanları iki sütunlu liste olur */
+
+    ul.ilgi li { padding: 10px 0; border-bottom: 1px solid var(--line); break-inside: avoid; } /* Her madde çizgiyle ayrılır */
+
+    ol.egitim { list-style: none; padding: 0; margin: 0; } /* Eğitim listesinde varsayılan numaralar kaldırılır */
+
+    ol.egitim li { /* Eğitim listesindeki her satır */
+      display: grid; /* Yıl ve bilgi için iki sütun */
+      grid-template-columns: 130px 1fr; /* Yıl sütunu 130px, kalan alan bilgi */
+      gap: 16px; /* Sütunlar arası boşluk */
+      padding: 16px 0; /* Dikey iç boşluk */
+      border-bottom: 1px solid var(--line); /* Satır altı çizgisi */
+    } /* ol li sonu */
+
+    ol.egitim .yil { color: var(--accent); font-weight: 600; } /* Yıl bilgisi vurgu renginde */
+
+    ol.egitim h3 { font-size: 1.15rem; } /* Okul adı başlık boyutu */
+
+    ol.egitim p { margin: 4px 0 0; color: var(--muted); } /* Okul açıklaması soluk renkte */
+
+    footer { grid-column: 2; grid-row: 2; text-align: center; color: var(--muted); padding: 24px; border-top: 1px solid var(--line); } /* Alt bilgi artık sadece sağ sütunda, panelin altında kalmaz */
+
+    .alt { min-height: 3.4em; } /* Yazı değişirken sayfanın zıplamaması için yer ayrılır */
+
+    .imlec { display: inline-block; width: 2px; height: 1em; background: currentColor; margin-left: 3px; vertical-align: -0.12em; animation: yanip 1s steps(1) infinite; } /* Yazı makinesi imleci */
+
+    @keyframes yanip { 50% { opacity: 0; } } /* İmleç yanıp söner */
+
+    #ilerleme { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background: var(--ink); transform: scaleX(0); transform-origin: left; z-index: 20; } /* Sayfa okuma ilerleme çubuğu */
+
+    ul.iletisim { list-style: none; padding: 0; margin: 0; } /* İletişim listesinde madde işareti olmaz */
+
+    ul.iletisim li { display: grid; grid-template-columns: 110px 1fr auto; gap: 16px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); } /* Etiket, bağlantı ve düğme için üç sütun */
+
+    ul.iletisim .etiket { color: var(--muted); } /* İletişim türü soluk renkte */
+
+    ul.iletisim a { color: var(--ink); overflow-wrap: anywhere; } /* Bağlantılar uzun olsa da taşmaz */
+
+    ul.iletisim a:hover, ul.iletisim a:focus-visible { color: var(--accent); } /* Üzerine gelince vurgu rengi */
+
+    #kopyala { background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 6px 16px; font: inherit; cursor: pointer; } /* E-posta kopyalama düğmesi */
+
+    #kopyala:hover, #kopyala:focus-visible { border-color: var(--accent); color: var(--accent); } /* Düğme üzerine gelince vurgulanır */
+
+    #yukari { position: fixed; right: 24px; bottom: 24px; width: 48px; height: 48px; border-radius: 50%; border: none; background: var(--accent); color: #fff; font-size: 1.3rem; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .3s; z-index: 20; } /* Yukarı çık düğmesi, başta gizli */
+
+    #yukari.gorunur { opacity: 1; pointer-events: auto; } /* Aşağı inince düğme görünür olur */
+
+    @media (max-width: 800px) { /* İletişim satırları telefonda alt alta dizilsin */
+      ul.iletisim li { grid-template-columns: 1fr; gap: 4px; justify-items: start; } /* Tek sütuna geçilir */
+    } /* Medya sorgusu sonu */
+
+    @media (max-width: 800px) { /* Telefon ve küçük ekranlar için düzen */
+      body { grid-template-columns: 1fr; } /* Tek sütuna geçilir */
+      aside { grid-row: auto; position: static; height: auto; gap: 32px; } /* Panel üstte normal blok olur */
+      main, footer { grid-column: 1; grid-row: auto; } /* Telefonda içerik ve alt bilgi tek sütunda sıralanır */
+      ul.ilgi { columns: 1; } /* İlgi listesi tek sütun olur */
+      ol.egitim li { grid-template-columns: 1fr; gap: 2px; } /* Yıl ve okul alt alta gelir */
+    } /* Medya sorgusu sonu */
+
+    @media (prefers-reduced-motion: reduce) { /* Hareketi azaltmak isteyen kullanıcılar için */
+      html { scroll-behavior: auto; } /* Yumuşak kaydırma kapatılır */
+      body { transition: none; } /* Tema geçiş animasyonu kapatılır */
+    } /* Medya sorgusu sonu */
+  </style> <!-- CSS kodlarının bittiği etiket -->
+</head> <!-- head bölümünün sonu -->
+<body> <!-- Sayfada görünen her şeyin bulunduğu bölüm -->
+
+  <div id="ilerleme" aria-hidden="true"></div> <!-- Sayfa ilerleme çubuğu (JavaScript doldurur) -->
+
+  <!-- ===== SOL PANEL: Selam, ana başlık, menü ve tema düğmesi ===== -->
+  <aside> <!-- Yan panel -->
+    <div> <!-- Panelin üst grubu -->
+      <p id="selam">Merhaba, ben</p> <!-- Saate göre JavaScript ile değişen selam -->
+      <h1>Yusuf İslam Yılmaz</h1> <!-- Sayfadaki tek h1: ad soyad -->
+      <p class="alt"><span id="rol">Bilgisayar programcılığı öğrencisi</span><span class="imlec" aria-hidden="true"></span></p> <!-- Kısa tanıtım: JavaScript ile yazı makinesi gibi değişir -->
+      <nav aria-label="Sayfa menüsü"> <!-- Bölümlere giden menü -->
+        <a href="#hakkimda">Hakkımda</a> <!-- Hakkımda bölümüne gider -->
+        <a href="#ilgi">İlgi Alanlarım</a> <!-- İlgi alanları bölümüne gider -->
+        <a href="#egitim">Eğitim</a> <!-- Eğitim bölümüne gider -->
+        <a href="#deneyim">Staj ve Gönüllülük</a> <!-- Deneyim bölümüne gider -->
+        <a href="#iletisim">İletişim</a> <!-- İletişim bölümüne gider -->
+      </nav> <!-- Menü sonu -->
+    </div> <!-- Üst grup sonu -->
+    <button id="tema" type="button" aria-label="Açık ve koyu tema arasında geçiş yap">Koyu tema</button> <!-- Tema değiştirme düğmesi -->
+  </aside> <!-- Yan panel sonu -->
+
+  <main> <!-- Sayfanın ana içeriği -->
+
+    <!-- ===== HAKKIMDA BÖLÜMÜ: Paragraflar ===== -->
+    <section id="hakkimda"> <!-- Hakkımda bölümü -->
+      <h2>Hakkımda</h2> <!-- Birinci h2 başlığı -->
+      <p> <!-- Birinci paragraf başlangıcı -->
+        İstanbul'un Küçükçekmece ilçesinde yaşıyordum, üniversite için Isparta'ya geçtim. <!-- Yaşadığım yer bilgisi -->
+        <strong>İsmet Aktar Mesleki ve Teknik Anadolu Lisesi</strong>nin Yazılım Geliştirme dalından mezun oldum. <!-- Lise bilgisi, strong ile vurgulu -->
+        Özellikle <strong>donanım</strong> ve <strong>veri tabanları</strong> konularında daha bilgiliyim. <!-- Güçlü olduğum alanlar -->
+      </p> <!-- Birinci paragraf sonu -->
+      <p> <!-- İkinci paragraf başlangıcı -->
+        2026'da <em>Isparta Uygulamalı Bilimler Üniversitesi (ISUBU)</em> Bilgisayar Programcılığı bölümünde okumaya başladım. <!-- Üniversite bilgisi, em ile vurgulu -->
+        Bu sayfayı <em>Web Tasarımının Temelleri</em> dersinde HTML öğrenirken hazırladım. <!-- Bu sayfanın amacı -->
+      </p> <!-- İkinci paragraf sonu -->
+    </section> <!-- Hakkımda bölümü sonu -->
+
+    <!-- ===== İLGİ ALANLARI BÖLÜMÜ: Sırasız liste ===== -->
+    <section id="ilgi"> <!-- İlgi alanları bölümü -->
+      <h2>İlgi Alanlarım</h2> <!-- İkinci h2 başlığı -->
+      <ul class="ilgi"> <!-- Sırasız liste -->
+        <li>Yazılım geliştirme</li> <!-- İlgi alanı 1 -->
+        <li>Donanım</li> <!-- İlgi alanı 2 -->
+        <li>Veri tabanları</li> <!-- İlgi alanı 3 -->
+        <li>Web tasarımı</li> <!-- İlgi alanı 4 -->
+        <li>Gönüllülük çalışmaları</li> <!-- İlgi alanı 5 -->
+        <li>Bilgisayar sistemleri</li> <!-- İlgi alanı 6 -->
+      </ul> <!-- Sırasız liste sonu -->
+    </section> <!-- İlgi alanları bölümü sonu -->
+
+    <!-- ===== EĞİTİM BÖLÜMÜ: Sıralı liste (eski okuldan yeniye) ===== -->
+    <section id="egitim"> <!-- Eğitim bölümü -->
+      <h2>Eğitim Geçmişim</h2> <!-- Üçüncü h2 başlığı -->
+      <ol class="egitim"> <!-- Sıralı liste: okullar kronolojik sırada -->
+        <li> <!-- İlkokul satırı -->
+          <span class="yil">2015 – 2018</span> <!-- İlkokul yılları -->
+          <div><h3>Yunus Emre İlkokulu</h3></div> <!-- İlkokul adı -->
+        </li> <!-- İlkokul satırı sonu -->
+        <li> <!-- Ortaokul satırı -->
+          <span class="yil">2019 – 2022</span> <!-- Ortaokul yılları -->
+          <div><h3>Mehmet Akif İnan İmam Hatip Ortaokulu</h3></div> <!-- Ortaokul adı -->
+        </li> <!-- Ortaokul satırı sonu -->
+        <li> <!-- Lise satırı -->
+          <span class="yil">2022 – 2026</span> <!-- Lise yılları -->
+          <div> <!-- Lise bilgileri kutusu -->
+            <h3>İsmet Aktar Mesleki ve Teknik Anadolu Lisesi</h3> <!-- Lise adı -->
+            <p>Yazılım Geliştirme dalı. Donanım ve veri tabanları üzerine yoğunlaştım.</p> <!-- Lise açıklaması -->
+          </div> <!-- Lise bilgileri kutusu sonu -->
+        </li> <!-- Lise satırı sonu -->
+        <li> <!-- Üniversite satırı -->
+          <span class="yil">2026 – devam</span> <!-- Üniversite yılları -->
+          <div> <!-- Üniversite bilgileri kutusu -->
+            <h3>Isparta Uygulamalı Bilimler Üniversitesi</h3> <!-- Üniversite adı -->
+            <p>Bilgisayar Programcılığı</p> <!-- Bölüm adı -->
+          </div> <!-- Üniversite bilgileri kutusu sonu -->
+        </li> <!-- Üniversite satırı sonu -->
+      </ol> <!-- Sıralı liste sonu -->
+    </section> <!-- Eğitim bölümü sonu -->
+
+    <!-- ===== STAJ VE GÖNÜLLÜLÜK BÖLÜMÜ ===== -->
+    <section id="deneyim"> <!-- Deneyim bölümü -->
+      <h2>Staj ve Gönüllülük</h2> <!-- Dördüncü h2 başlığı -->
+      <p> <!-- Staj paragrafı -->
+        <strong>Show Mağazacılık</strong> firmasında <em>IT Asistanı</em> olarak staj yaptım. <!-- Staj bilgisi -->
+        Okulda öğrendiklerimi iş ortamında uygulama fırsatı buldum. <!-- Stajın katkısı -->
+      </p> <!-- Staj paragrafı sonu -->
+      <p> <!-- Gönüllülük paragrafı -->
+        Ayrıca <strong>Genç Kızılay</strong> gönüllüsüyüm. <!-- Gönüllülük bilgisi -->
+        Topluma faydalı işlerde yer almayı önemsiyorum. <!-- Gönüllülüğe bakışım -->
+      </p> <!-- Gönüllülük paragrafı sonu -->
+    </section> <!-- Deneyim bölümü sonu -->
+
+    <!-- ===== İLETİŞİM BÖLÜMÜ: E-posta, LinkedIn ve GitHub ===== -->
+    <section id="iletisim"> <!-- İletişim bölümü -->
+      <h2>İletişim</h2> <!-- Beşinci h2 başlığı -->
+      <ul class="iletisim"> <!-- İletişim bilgileri listesi -->
+        <li> <!-- E-posta satırı -->
+          <span class="etiket">E-posta</span> <!-- Satırın adı -->
+          <a href="mailto:Yusufislamyilmaz153@gmail.com">Yusufislamyilmaz153@gmail.com</a> <!-- Tıklayınca e-posta uygulamasını açar -->
+          <button id="kopyala" type="button">E-postayı kopyala</button> <!-- Adresi panoya kopyalar (JavaScript) -->
+        </li> <!-- E-posta satırı sonu -->
+        <li> <!-- LinkedIn satırı -->
+          <span class="etiket">LinkedIn</span> <!-- Satırın adı -->
+          <a href="https://www.linkedin.com/in/yusuf-islam-y%C4%B1lmaz-577364397/" target="_blank" rel="noopener noreferrer">linkedin.com/in/yusuf-islam-yılmaz</a> <!-- Yeni sekmede LinkedIn profilini açar -->
+          <span></span> <!-- Grid düzenini korumak için boş alan -->
+        </li> <!-- LinkedIn satırı sonu -->
+        <li> <!-- GitHub satırı -->
+          <span class="etiket">GitHub</span> <!-- Satırın adı -->
+          <a href="https://github.com/yusufsdev" target="_blank" rel="noopener noreferrer">github.com/yusufsdev</a> <!-- Yeni sekmede GitHub profilini açar -->
+          <span></span> <!-- Grid düzenini korumak için boş alan -->
+        </li> <!-- GitHub satırı sonu -->
+      </ul> <!-- İletişim listesi sonu -->
+    </section> <!-- İletişim bölümü sonu -->
+
+  </main> <!-- Ana içerik sonu -->
+
+  <footer> <!-- Alt bilgi -->
+    <p>© <span id="yil">2026</span> Yusuf İslam Yılmaz</p> <!-- Yıl JavaScript ile güncellenir -->
+  </footer> <!-- Alt bilgi sonu -->
+
+  <button id="yukari" type="button" aria-label="Sayfanın başına dön">↑</button> <!-- Yukarı çık düğmesi (aşağı inince görünür) -->
+
+  <!-- ===== JAVASCRIPT: Tema, selam, yıl, menü takibi, yazı makinesi, ilerleme çubuğu, kopyalama ===== -->
+  <script> /* JavaScript kodlarının başladığı etiket */
+    const kok = document.documentElement; // Sayfanın kök (html) öğesini alır
+    const dugme = document.getElementById("tema"); // Tema düğmesini bulur
+
+    let tema = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; // Varsayılan temayı cihaz ayarından belirler
+    try { tema = localStorage.getItem("tema") || tema; } catch (e) {} // Daha önce kayıtlı tema varsa onu kullanır
+
+    function temaUygula(t) { // Verilen temayı sayfaya uygulayan fonksiyon
+      kok.setAttribute("data-theme", t); // Temayı html öğesine yazar, CSS buna göre değişir
+      dugme.textContent = t === "dark" ? "Açık tema" : "Koyu tema"; // Düğme yazısını günceller
+    } // Fonksiyon sonu
+    temaUygula(tema); // Sayfa açılırken temayı uygular
+
+    dugme.addEventListener("click", function () { // Düğmeye tıklanınca çalışır
+      tema = kok.getAttribute("data-theme") === "dark" ? "light" : "dark"; // Mevcut temanın tersini seçer
+      temaUygula(tema); // Yeni temayı uygular
+      try { localStorage.setItem("tema", tema); } catch (e) {} // Seçimi tarayıcıda saklar
+    }); // Tıklama olayının sonu
+
+    const saat = new Date().getHours(); // Şu anki saati alır
+    let selam = "Merhaba, ben"; // Varsayılan selam
+    if (saat >= 5 && saat < 12) selam = "Günaydın, ben"; // Sabah saatlerinde günaydın der
+    else if (saat >= 18 || saat < 5) selam = "İyi akşamlar, ben"; // Akşam ve gece iyi akşamlar der
+    document.getElementById("selam").textContent = selam; // Selamı sayfadaki yazıya yerleştirir
+
+    document.getElementById("yil").textContent = new Date().getFullYear(); // Alt bilgideki yılı günceller
+
+    const bolumler = document.querySelectorAll("main section"); // Tüm bölümleri seçer
+    const baglantilar = document.querySelectorAll("nav a"); // Tüm menü bağlantılarını seçer
+    const gozlemci = new IntersectionObserver(function (kayitlar) { // Ekranda görünen bölümü izler
+      kayitlar.forEach(function (kayit) { // Her bölüm için kontrol eder
+        if (kayit.isIntersecting) { // Bölüm ekranın ortasındaysa
+          baglantilar.forEach(function (a) { // Tüm bağlantıları dolaşır
+            a.classList.toggle("aktif", a.getAttribute("href") === "#" + kayit.target.id); // Sadece o bölümün bağlantısını aktif yapar
+          }); // Bağlantı döngüsü sonu
+        } // if sonu
+      }); // Kayıt döngüsü sonu
+    }, { rootMargin: "-40% 0px -50% 0px" }); // Ekranın ortasındaki bölüm sayılır
+    bolumler.forEach(function (b) { gozlemci.observe(b); }); // Her bölümü izlemeye başlar
+
+    // ----- YAZI MAKİNESİ: kısa tanıtım yazısı sırayla yazılıp silinir -----
+    const roller = ["Bilgisayar programcılığı öğrencisi", "Genç Kızılay gönüllüsü", "Donanım ve veri tabanı meraklısı"]; // Sırayla yazılacak cümleler
+    const rolYeri = document.getElementById("rol"); // Yazının yerleşeceği öğeyi bulur
+    const azHareket = window.matchMedia("(prefers-reduced-motion: reduce)").matches; // Kullanıcı hareketi azaltmak istiyor mu kontrol eder
+    let rolNo = 0; // Şu an hangi cümlede olduğumuzu tutar
+    let harfNo = 0; // Cümlenin kaç harfinin görünür olduğunu tutar
+    let siliyor = false; // Yazıyor mu siliyor mu bilgisini tutar
+
+    function yaz() { // Her adımda bir harf ekleyen veya silen fonksiyon
+      const metin = roller[rolNo]; // Şu anki cümleyi alır
+      harfNo += siliyor ? -1 : 1; // Siliyorsa bir harf azaltır, yazıyorsa artırır
+      rolYeri.textContent = metin.slice(0, harfNo); // Cümlenin görünen kısmını ekrana yazar
+      let bekle = siliyor ? 40 : 80; // Silme hızlı, yazma biraz daha yavaş olur
+      if (!siliyor && harfNo === metin.length) { siliyor = true; bekle = 1600; } // Cümle bitince okunsun diye bekler ve silmeye geçer
+      else if (siliyor && harfNo === 0) { siliyor = false; rolNo = (rolNo + 1) % roller.length; bekle = 400; } // Silme bitince sıradaki cümleye geçer
+      setTimeout(yaz, bekle); // Bir sonraki adımı zamanlar
+    } // Fonksiyon sonu
+    if (!azHareket) { rolYeri.textContent = ""; yaz(); } // Hareket kısıtlı değilse animasyonu başlatır
+
+    // ----- İLERLEME ÇUBUĞU VE YUKARI ÇIK DÜĞMESİ -----
+    const cubuk = document.getElementById("ilerleme"); // İlerleme çubuğunu bulur
+    const yukari = document.getElementById("yukari"); // Yukarı çık düğmesini bulur
+
+    function kaydirma() { // Sayfa kaydırıldıkça çalışan fonksiyon
+      const toplam = document.documentElement.scrollHeight - window.innerHeight; // Kaydırılabilir toplam yüksekliği hesaplar
+      const oran = toplam > 0 ? window.scrollY / toplam : 0; // Sayfanın ne kadarının okunduğunu 0 ile 1 arasında bulur
+      cubuk.style.transform = "scaleX(" + oran + ")"; // Çubuğun genişliğini orana göre ayarlar
+      yukari.classList.toggle("gorunur", window.scrollY > 400); // 400px aşağı inilince düğmeyi gösterir
+    } // Fonksiyon sonu
+    window.addEventListener("scroll", kaydirma, { passive: true }); // Kaydırma olayını dinler
+    kaydirma(); // Sayfa açılırken bir kez çalıştırır
+
+    yukari.addEventListener("click", function () { // Düğmeye tıklanınca çalışır
+      window.scrollTo({ top: 0, behavior: "smooth" }); // Sayfanın başına yumuşakça kaydırır
+    }); // Tıklama olayının sonu
+
+    // ----- E-POSTA KOPYALAMA DÜĞMESİ -----
+    const kopyala = document.getElementById("kopyala"); // Kopyalama düğmesini bulur
+    kopyala.addEventListener("click", async function () { // Düğmeye tıklanınca çalışır
+      const adres = "Yusufislamyilmaz153@gmail.com"; // Kopyalanacak e-posta adresi
+      try { // Hata olabilecek kısmı dener
+        await navigator.clipboard.writeText(adres); // Adresi panoya kopyalar
+        kopyala.textContent = "Kopyalandı ✓"; // Kullanıcıya başarı mesajı gösterir
+      } catch (e) { // Kopyalama başarısız olursa
+        kopyala.textContent = "Kopyalanamadı"; // Hata mesajı gösterir
+      } // try-catch sonu
+      setTimeout(function () { kopyala.textContent = "E-postayı kopyala"; }, 2000); // 2 saniye sonra yazıyı eski haline getirir
+    }); // Tıklama olayının sonu
+  </script> <!-- JavaScript kodlarının bittiği etiket -->
+
+</body> <!-- Sayfanın görünen kısmının sonu -->
+</html> <!-- HTML belgesinin sonu -->
